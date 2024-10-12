@@ -1,0 +1,28 @@
+.message-box {
+    position: absolute;
+    top: 20px; /* Position the box */
+    left: 20px; /* Position the box */
+    width: 300px; /* Fixed width of the message box */
+    height: 400px; /* Fixed height of the message box */
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background */
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding: 10px; /* Padding inside the box */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow for aesthetics */
+    z-index: 1000; /* Make sure it's above the map */
+}
+
+.messages {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message {
+    border-bottom: 1px solid #eee;
+    padding: 5px 0;
+    margin: 5px 0; /* Spacing between messages */
+    background-color: #f9f9f9; /* Message background */
+    border-radius: 5px; /* Rounded corners for messages */
+}
