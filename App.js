@@ -6,7 +6,6 @@ export default function App() {
   console.log("started app execution mothafacka")
   return (
     <View style={styles.container}>
-      <Text>wassupppppppppppppppppppppppppppppp</Text>
       <StatusBar style="auto" />
       <Map />
     </View>
