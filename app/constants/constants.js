@@ -42,13 +42,9 @@ export const markerBounds = pointsOfInterest.map(point => {
   })
 
 export const shadowOffset = 0.0001
-// export const defaultIcon = new L.Icon({
-//     iconUrl: require('leaflet/dist/images/marker-icon.png'),
-//     // iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
-//     // iconRetinaUrl: require('leaflet/dist/images/marker-icon-green.png'),
-//     shadowUrl: require('leaflet/dist/images/marker-shadow.png'),
-//     iconSize: [25, 41],
-//     iconAnchor: [12, 41],
-//     popupAnchor: [1, -34],
-//   })
+
+const markerImageGreen = require('../../assets/marker-icon-2x-green.png');
+const markerImageRed = require('../../assets/marker-icon-2x-red.png')
+const markerShadowImage = require('../../assets/marker-shadow.png')
+
   

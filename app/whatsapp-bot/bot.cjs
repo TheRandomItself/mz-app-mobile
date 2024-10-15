@@ -93,7 +93,6 @@ client.on('message', message => {
     if (message.from.includes("[number]"))
     {
         console.log("recieved message from [number]")
-        // let reversedMessage = message.body.split('').reverse().join('')
         let wordArray = message.body.split(' ')
 
 const anotherString = '░░░░░░░░░░░█▀▀░░█░░░░░░\n' + 
@@ -124,19 +123,26 @@ function generateRandomMessages() {
 
 }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//this is only for testing
+function addMessages() {
+    let currentTime = new Date()
+    messages.set(Math.floor(currentTime.getTime() / 1000) - 5 * 60, 
+        { from: 'Charlie', body: generateRandomMessages(), 
+        timestamp: Math.floor(currentTime.getTime() / 1000) - 5 * 60 });
+    setTimeout(addMessages, 1000);
+}
+
+addMessages();
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 app.get('/:unixTime', cors(corsOptions), (req, res) => {
     const unixTime = req.params.unixTime;
  
-    // console.log("entered unixtime asking for some messages")
     const timestamp = parseInt(unixTime, 10);
 
     if (!isNaN(timestamp)) {
         const date = new Date(timestamp);
         const currentTimeMilliseconds = new Date().getTime()
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        //this is only for testing
-        messages.set(timestamp + 10, { from: 'Charlie', body: generateRandomMessages(), timestamp: timestamp + 10 });
-        //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         let messageRange = messages.getRange(timestamp, currentTimeMilliseconds)
         res.status(200).send(messageRange)
         // res.status(200).send(`Unix Time: ${unixTime} corresponds to ${date.toISOString()}`);
