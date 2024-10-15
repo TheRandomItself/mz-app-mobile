@@ -11,42 +11,11 @@ const Map = () => {
   let  messagesRef = useRef([]);
   const markerImage = require('../../assets/marker-icon-2x-green.png');
   const markerShadowImage = require('../../assets/marker-shadow.png')
-  const prevScrollHeight = useRef(0)
-  const prevScrollTop = useRef(0)
   const [scrollY, setScrollY] = useState(0);
   const [contentHeight, setContentHeight] = useState(0);
 
-  const handleScrollEndDrag = (event) => {
-    // Access the content offset
-    const { contentOffset, layoutMeasurement } = event.nativeEvent;
-
-    console.log('Scroll Ended');
-    console.log('Content Offset:', contentOffset);
-    console.log('Layout Measurement:', layoutMeasurement);
-    console.log("the nativeEventContentSize.height is:  ", event.nativeEvent.contentSize.height);
-
-
-    // You can check if the scroll is near the bottom to fetch more data, etc.
-    const isNearBottom = contentOffset.y + layoutMeasurement.height >= event.nativeEvent.contentSize.height - 50;
-
-    if (isNearBottom) {
-      console.log('Near the bottom of the ScrollView!');
-      // Fetch more data or perform an action
-    }
-  };
 
   const handleContentSizeChange = (contentWidth, newContentHeight) => {
-    
-    console.log("newContentHeight is: " + newContentHeight)
-    console.log("scrollY is: " + (scrollY + 400 + 50))
-    console.log("contentHeight is: " + contentHeight)
-    let scrollHeightMeasure = 0;
-    // messageBoxRef.current.measure((x, y, width, height) => {
-    //   scrollHeightMeasure = height
-    // });
-    // console.log("messageBoxRef.current.measure.height is: " + scrollHeightMeasure)
-    // console.log("scrollY + messageBoxRef.current.measure.height is: " + scrollY + messageBoxRef.current.measure.height)
-    // Automatically scroll to bottom if near the bottom
     if (scrollY + 400 + 50 >= contentHeight) {
       messageBoxRef.current.scrollToEnd({ animated: true });
       setScrollY(newContentHeight)
@@ -56,28 +25,9 @@ const Map = () => {
 
   const handleScroll = (event) => {
     const currentScrollY = event.nativeEvent.contentOffset.y;
-    setScrollY(currentScrollY); // Update current scroll position
+    setScrollY(currentScrollY); 
   };
 
-  useEffect(() => {
-    if (!messageBoxRef.current) return 
-    // console.log("======================================================================================")
-    // console.log("messagesRef.current.scrollHeight: ",  messagesRef.current.scrollHeight)
-    // console.log("messagesRef.current.scrollTop: ", messagesRef.current.scrollTop)
-    // console.log("prevScrollTop.current: ", prevScrollTop.current)
-    // console.log("prevScrollHeight.current: ", prevScrollHeight.current)
-    // console.log("======================================================================================")
-
-    // messageBoxRef.current.scrollToEnd({ animated: true });
-    if (messageBoxRef.current.scrollTop - prevScrollTop.current >= -10) {
-        messageBoxRef.current.scrollTop = messageBoxRef.current.scrollHeight;
-        prevScrollTop.current = messageBoxRef.current.scrollTop
-    }
-    else{
-      prevScrollTop.current = prevScrollTop.current + messageBoxRef.current.scrollHeight - prevScrollHeight.current
-    }
-    prevScrollHeight.current = messageBoxRef.current.scrollHeight
-}, [messages]);
 
   useEffect(() => {
     // const updateGateIcon = (gateName, newIcon) => {
@@ -243,7 +193,7 @@ const Map = () => {
 
 
       </MapView>
-      <ScrollView style={styles.messageBox} onScroll={handleScroll} onContentSizeChange={handleContentSizeChange} onScrollEndDrag={handleScrollEndDrag} ref={messageBoxRef}>
+      <ScrollView style={styles.messageBox} onScroll={handleScroll} onContentSizeChange={handleContentSizeChange} ref={messageBoxRef}>
         {messages.map((msg, index) => (
           <View key={index} style={styles.message}>
             <Text>{msg[1].body}</Text>
